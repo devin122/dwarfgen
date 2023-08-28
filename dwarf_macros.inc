@@ -171,6 +171,7 @@
 
 
 .macro ARRAY type, count
+	BEGIN_DWARF
 	_assert_defined .L_abbr_array, .L_abbr_subrange
 	BEGIN_TYPE_INFO arr\count\()_\type
 		.uleb128 .L_abbr_array
@@ -180,11 +181,14 @@
 		.2byte \count
 		.uleb128 0
 	END_TYPE_INFO
+	END_DWARF
 .endm
 
 
 # marks existing symbol with a given type
+# TODO: this should this maybe be integrated with decl_label?
 .macro VARIABLE type, name
+	BEGIN_DWARF
 	_assert_defined .L_abbr_variable
 	.uleb128 .L_abbr_variable
 	.string "\name"
@@ -193,7 +197,7 @@
 	.uleb128 5
 	.byte .LDW_OP_addr
 	.4byte \name
-
+	END_DWARF
 .endm
 ################################
 # Forward declaration of abbreviation IDS
