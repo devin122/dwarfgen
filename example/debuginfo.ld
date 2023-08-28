@@ -24,20 +24,20 @@ SECTIONS
 		*(.debug_info_footer)
 	}
 
-
-	.bss  0x80000000 :  AT(0x80000000)
+	.bss  IMAGE_LOAD_ADDR :  AT(IMAGE_LOAD_ADDR)
 	{
 
-		 *(.text)
+		*(.text)
 		*(.data)
 		*(.bss)
 
+		/* TODO: parameterize segment size */
 		. =  . + 0x640ec ;
 /*		       0x800540ec*/
 
     } :data
 
-		/DISCARD/ :
+	/DISCARD/ :
 	{
 		*(.ARM.attributes)
 	}
